@@ -8,6 +8,7 @@
       :itemText="item.name"
       :itemCompleted="item.completed"
       :itemIndex="index"
+      :length="todoListLength"
     />
   </div>
 </template>
@@ -18,11 +19,20 @@ import ListItem from "../Item/ListItem.vue";
 
 export default {
   // Dữ liệu và logic của component
+  data() {
+    return {};
+  },
   components: {
     "list-item": ListItem,
   },
   computed: {
     ...mapGetters(["getTodoList"]),
+    todoListLength() {
+      return this.getTodoList.length;
+    },
+  },
+  watch: {
+    getTodoList() {},
   },
   methods: {},
 };

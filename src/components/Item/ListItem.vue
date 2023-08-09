@@ -18,6 +18,7 @@ export default {
     itemText: String,
     itemCompleted: Boolean,
     itemIndex: Number,
+    length: Number,
   },
   data() {
     return {
@@ -26,9 +27,6 @@ export default {
   },
   computed: {
     ...mapGetters(["getItemList"]),
-    itemList() {
-      return this.getItemList;
-    },
   },
   watch: {
     isSelected(checked) {
@@ -42,13 +40,15 @@ export default {
         this.$store.dispatch("unselectItem", this.itemIndex);
       }
     },
-    itemList() {
-      console.log(this.itemText);
+    length(newLength, oldLength) {
+      if (newLength !== oldLength) {
+        this.uncheckCheckbox();
+      }
     },
   },
   methods: {
     uncheckCheckbox() {
-      this.isSelected = !this.isSelected;
+      this.isSelected = false;
     },
 
     showEditModal() {

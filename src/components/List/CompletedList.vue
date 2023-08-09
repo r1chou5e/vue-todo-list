@@ -8,6 +8,7 @@
       :itemText="item.name"
       :itemCompleted="item.completed"
       :itemIndex="index"
+      :length="completedListLength"
     />
   </div>
 </template>
@@ -23,6 +24,9 @@ export default {
   },
   computed: {
     ...mapGetters(["getCompletedList"]),
+    completedListLength() {
+      return this.getCompletedList.length;
+    },
   },
   methods: {},
 };

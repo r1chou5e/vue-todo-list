@@ -16,6 +16,10 @@ export default {
   },
 
   completeSelectedItem(state) {
+    state.selectedList = state.selectedList.filter(
+      (selectedItem) => !selectedItem.completed
+    );
+
     state.selectedList.map((selectedItem) => (selectedItem.completed = true));
 
     state.completedList = state.completedList.concat(
@@ -35,6 +39,10 @@ export default {
   },
 
   uncompleteSelectedItem(state) {
+    state.selectedList = state.selectedList.filter(
+      (selectedItem) => selectedItem.completed
+    );
+
     state.selectedList.map((selectedItem) => (selectedItem.completed = false));
 
     state.todoList = state.todoList.concat(
