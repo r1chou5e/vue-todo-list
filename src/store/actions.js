@@ -3,8 +3,8 @@ export default {
     context.commit("addItem", { name, completed: false });
   },
 
-  selectItem(context, index) {
-    context.commit("selectItem", index);
+  selectItem(context, payload) {
+    context.commit("selectItem", payload);
   },
 
   unselectItem(context, index) {
@@ -15,8 +15,8 @@ export default {
     context.commit("completeSelectedItem");
   },
 
-  unselectAllItem(context) {
-    context.commit("unselectAllItem");
+  uncompleteSelectedItem(context) {
+    context.commit("uncompleteSelectedItem");
   },
 
   showEditModal(context) {

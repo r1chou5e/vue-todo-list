@@ -1,9 +1,11 @@
 export default {
-  itemList: [],
-  selectedIndex: [],
+  todoList: [],
+  completedList: [],
+  selectedList: [],
   isShowModal: false,
   edit: {
     editName: "",
     editIndex: -1,
+    editCompleted: false,
   },
 };

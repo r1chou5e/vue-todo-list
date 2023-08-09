@@ -1,28 +1,56 @@
 export default {
   addItem(state, item) {
-    state.itemList.push(item);
+    state.todoList.push(item);
   },
 
-  selectItem(state, index) {
-    state.selectedIndex.push(index);
+  selectItem(state, payload) {
+    state.selectedList.push(payload);
+    console.log(state.selectedList);
   },
 
   unselectItem(state, index) {
-    state.selectedIndex = state.selectedIndex.filter((item) => item !== index);
+    state.selectedList = state.selectedList.filter(
+      (item) => item.index !== index
+    );
+    console.log(state.selectedList);
   },
 
   completeSelectedItem(state) {
-    for (let i = 0; i < state.itemList.length; i++) {
-      state.selectedIndex.forEach((element) => {
-        if (element === i) {
-          state.itemList[i].completed = true;
-        }
-      });
-    }
+    state.selectedList.map((selectedItem) => (selectedItem.completed = true));
+
+    state.completedList = state.completedList.concat(
+      state.selectedList.map((item) => {
+        const { name, completed } = item;
+        return { name, completed };
+      })
+    );
+
+    state.todoList = state.todoList.filter((todoItem, i) => {
+      return !state.selectedList.some(
+        (selectedItem) => selectedItem.index === i
+      );
+    });
+
+    state.selectedList = [];
   },
 
-  unselectAllItem(state) {
-    state.selectedIndex = [];
+  uncompleteSelectedItem(state) {
+    state.selectedList.map((selectedItem) => (selectedItem.completed = false));
+
+    state.todoList = state.todoList.concat(
+      state.selectedList.map((item) => {
+        const { name, completed } = item;
+        return { name, completed };
+      })
+    );
+
+    state.completedList = state.completedList.filter((completedItem, i) => {
+      return !state.selectedList.some(
+        (selectedItem) => selectedItem.index === i
+      );
+    });
+
+    state.selectedList = [];
   },
 
   showEditModal(state) {
@@ -38,7 +66,12 @@ export default {
   },
 
   updateName(state, payload) {
-    state.itemList[payload.index].name = payload.name;
+    console.log(state, payload);
+    if (!payload.completed) {
+      state.todoList[payload.index].name = payload.name;
+    } else {
+      state.completedList[payload.index].name = payload.name;
+    }
   },
 
   deleteSelectedItem(state) {

@@ -2,7 +2,7 @@
   <div class="list-item">
     <span>
       <input type="checkbox" v-model="isSelected" class="item-checkbox" />
-      {{ itemText + " - " + itemIndex }}
+      {{ itemText }}
     </span>
     <span class="edit-icon" @click="showEditModal">
       <i class="fa-solid fa-pencil"></i>
@@ -17,7 +17,7 @@ export default {
   props: {
     itemText: String,
     itemCompleted: Boolean,
-    itemIndex: Int16Array,
+    itemIndex: Number,
   },
   data() {
     return {
@@ -33,11 +33,14 @@ export default {
   watch: {
     isSelected(checked) {
       if (checked) {
-        this.$store.dispatch("selectItem", this.itemIndex);
+        this.$store.dispatch("selectItem", {
+          index: this.itemIndex,
+          name: this.itemText,
+          completed: this.itemCompleted,
+        });
       } else {
         this.$store.dispatch("unselectItem", this.itemIndex);
       }
-      console.log(this.$store.state.selectedIndex);
     },
     itemList() {
       console.log(this.itemText);
@@ -45,13 +48,14 @@ export default {
   },
   methods: {
     uncheckCheckbox() {
-      this.isSelected = false;
+      this.isSelected = !this.isSelected;
     },
 
     showEditModal() {
       this.$store.dispatch("setEdit", {
         editName: this.itemText,
         editIndex: this.itemIndex,
+        editCompleted: this.itemCompleted,
       });
       this.$store.dispatch("showEditModal");
       console.log(this.$store.state.edit);

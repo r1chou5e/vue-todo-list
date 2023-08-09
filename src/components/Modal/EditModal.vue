@@ -7,7 +7,7 @@
         <div class="modal-body">
           <input
             type="text"
-            :value="getEditName"
+            :value="this.getEdit.editName"
             class="styled-input"
             ref="editInput"
           />
@@ -27,7 +27,7 @@ import { mapGetters } from "vuex";
 export default {
   // Dữ liệu và logic của component
   computed: {
-    ...mapGetters(["getEditName", "getEditIndex"]),
+    ...mapGetters(["getEdit"]),
   },
   methods: {
     closeEditModal() {
@@ -37,7 +37,8 @@ export default {
       const newName = this.$refs.editInput.value;
       this.$store.dispatch("updateName", {
         name: newName,
-        index: this.getEditIndex,
+        index: this.getEdit.editIndex,
+        completed: this.getEdit.editCompleted,
       });
       this.$store.dispatch("closeEditModal");
     },

@@ -38,7 +38,7 @@ export default {
           this.moveDown();
           break;
         case "left":
-          this.moveLeft();
+          this.uncompleteSelectedItem();
           break;
         case "right":
           this.completeSelectedItem();
@@ -57,16 +57,13 @@ export default {
       console.log("Move Down");
       // Thêm logic xử lý tại đây
     },
-    moveLeft() {
+    uncompleteSelectedItem() {
       // Xử lý khi nút "Left" được nhấn
-      console.log("Move Left");
+      this.$store.dispatch("uncompleteSelectedItem");
       // Thêm logic xử lý tại đây
     },
     completeSelectedItem() {
       this.$store.dispatch("completeSelectedItem");
-      console.log(this.$store.state);
-      this.$store.dispatch("unselectAllItem");
-      console.log(this.$store.state);
     },
   },
 };

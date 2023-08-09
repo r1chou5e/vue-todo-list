@@ -1,9 +1,8 @@
 export default {
   getItemList: (state) => state.itemList,
-  getTodoList: (state) => state.itemList.filter((item) => !item.completed),
-  getCompletedList: (state) => state.itemList.filter((item) => item.completed),
+  getTodoList: (state) => state.todoList,
+  getCompletedList: (state) => state.completedList,
   getSelectedItemList: (state) => state.selectedItemList,
   getIsShowModal: (state) => state.isShowModal,
-  getEditName: (state) => state.edit.editName,
-  getEditIndex: (state) => state.edit.editIndex,
+  getEdit: (state) => state.edit,
 };
