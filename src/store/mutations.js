@@ -83,10 +83,21 @@ export default {
   },
 
   deleteSelectedItem(state) {
-    state.itemList = state.itemList.filter(
-      (item, index) => !state.selectedIndex.includes(index)
-    );
+    const updatedTodoList = state.todoList.filter((item, index) => {
+      return !state.selectedList.some(
+        (selectedItem) =>
+          selectedItem.index === index && !selectedItem.completed
+      );
+    });
 
+    const updatedCompletedList = state.completedList.filter((item, index) => {
+      return !state.selectedList.some(
+        (selectedItem) => selectedItem.index === index && selectedItem.completed
+      );
+    });
+
+    state.todoList = updatedTodoList;
+    state.completedList = updatedCompletedList;
     state.selectedIndex = [];
   },
 };

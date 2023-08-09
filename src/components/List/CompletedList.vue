@@ -28,7 +28,6 @@ export default {
       return this.getCompletedList.length;
     },
   },
-  methods: {},
 };
 </script>
 

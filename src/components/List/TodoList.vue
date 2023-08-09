@@ -31,10 +31,6 @@ export default {
       return this.getTodoList.length;
     },
   },
-  watch: {
-    getTodoList() {},
-  },
-  methods: {},
 };
 </script>
 
